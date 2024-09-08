@@ -20,7 +20,7 @@
 
                 <div class="table-responsive">
 
-                    <table class="table table-hover table-sm">
+                    <table class="table table-hover table-sm align-middle">
 
                         <thead>
 
@@ -28,9 +28,9 @@
                             <td></td>
                             <td>Description</td>
                             <td>Url</td>
-                            <td>Clicks</td>
+                            <td class="text-center">Clicks</td>
                             <td class="text-center">Target</td>
-                            <td></td>
+                            <td class="text-center">QR code</td>
                         </tr>
 
                         </thead>
@@ -51,7 +51,7 @@
                                 <td>
                                     <span class="text-muted">saproto.nl/go</span><strong>/{{ $url->url }}</strong>
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{ $url->clicks }}
                                 </td>
                                 <td class="text-center">
@@ -63,6 +63,11 @@
                                        class="btn badge bg-info">
                                         <i class="fas fa-link text-white"></i>
                                     </button>
+                                </td>
+
+                                <td class="text-center qr-code-container">
+                                    <button class="btn badge bg-info"><i class="fas fa-eye text-white"></i></button>
+                                    <div class="qr-code mx-auto my-2 d-none cursor-pointer" data-size="48" data-content="saproto.nl/go/{{ $url->url }}"></div>
                                 </td>
 
                             </tr>
@@ -84,3 +89,21 @@
     </div>
 
 @endsection
+
+@push('javascript')
+    <script type="text/javascript" nonce="{{ csp_nonce() }}">
+        const QrCodeContainers = Array.from(document.querySelectorAll('.qr-code-container'))
+        QrCodeContainers.forEach((el) => {
+            let button = el.getElementsByTagName("button")[0]
+            let qrCode = el.getElementsByTagName("div")[0]
+            button.onclick = (_) => {
+                button.classList.add('d-none')
+                qrCode.classList.remove('d-none')
+            }
+            qrCode.onclick = (_) => {
+                button.classList.remove('d-none')
+                qrCode.classList.add('d-none')
+            }
+        })
+    </script>
+@endpush

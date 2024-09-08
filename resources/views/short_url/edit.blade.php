@@ -4,6 +4,12 @@
     Change a Short URL
 @endsection
 
+@push('javascript')
+    <script nonce="{{ csp_nonce() }}">
+
+    </script>
+@endpush
+
 @section('container')
 
     <div class="row justify-content-center">
@@ -70,7 +76,5 @@
         </div>
 
     </div>
-
-    </form>
 
 @endsection

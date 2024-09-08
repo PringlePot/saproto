@@ -293,3 +293,19 @@ _paq.push(['enableLinkTracking']);
     g.src = u + 'matomo.js';
     s.parentNode.insertBefore(g, s);
 })()
+
+// Generate QR codes
+import QrCreator from 'qr-creator';
+const QrCodeList = Array.from(document.querySelectorAll('.qr-code'))
+const padding = 5
+QrCodeList.forEach((el) => {
+    const size = parseInt(el.getAttribute('data-size') ?? 128)
+    if (! el.style.padding) el.style.padding = `${padding}px`
+    if (! el.style.width) el.style.width = `${size + padding * 2}px`
+    if(! el.style.height) el.style.height = `${size + padding * 2}px`
+    QrCreator.render({
+        text: el.getAttribute('data-content'),
+        ecLevel: el.getAttribute('data-ecLevel') ?? 'H',
+        size: size,
+    }, el)
+})

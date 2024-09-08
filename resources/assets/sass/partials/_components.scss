@@ -329,6 +329,12 @@ $photo-hover-gradient: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 
   }
 }
 
+// QR Code
+.qr-code {
+  background-color: $white;
+  border-radius: $border-radius;
+}
+
 // Profile
 #about {
   .card-header {
