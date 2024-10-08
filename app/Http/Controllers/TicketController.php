@@ -435,7 +435,7 @@ class TicketController extends Controller
 
         Session::flash('flash_message', 'Order completed succesfully! You can find your tickets on this event page.');
 
-        $ticket = Ticket::query()->find($request->get('tickets')[0]);
+        $ticket = Ticket::query()->find(array_slice($request->get('tickets'), 0, 1)[0]);
         if ($ticket?->redirect_url) {
             return Redirect::away($ticket->redirect_url);
         }
